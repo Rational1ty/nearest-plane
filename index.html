@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <title alt="index">Nearest Plane</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="icon" href="./resources/icon.png"/>
+        <link rel="stylesheet" type="text/css" href="./styles/style.css"/>
+        <script defer src="./scripts/dynamic.js" type="application/javascript"></script>
+        <script async src="./scripts/nearest-plane.js" type="application/javascript"></script>
+    </head>
+
+    <body>
+        <!-- Wrapper div for background slideshow and two main halves (carousel, info, output) -->
+        <div class="content">
+            <!-- Background slideshow container-->
+            <div class="carousel" id="carousel">
+                <img src="./resources/carousel/planes-1.jpg" class="carousel__img carousel__img--move">
+                <img src="./resources/carousel/planes-2.jpg" class="carousel__img carousel__img--move">
+                <img src="./resources/carousel/planes-3.jpg" class="carousel__img carousel__img--move">
+                <img src="./resources/carousel/planes-4.jpg" class="carousel__img carousel__img--move">
+                <img src="./resources/carousel/planes-5.jpg" class="carousel__img carousel__img--move">
+                <img src="./resources/carousel/planes-6.jpg" class="carousel__img carousel__img--move">
+                <img src="./resources/carousel/planes-7.jpg" class="carousel__img carousel__img--move">
+                <img src="./resources/carousel/planes-8.jpg" class="carousel__img carousel__img--move">
+                <img src="./resources/carousel/planes-9.jpg" class="carousel__img carousel__img--move">
+                <img src="./resources/carousel/planes-10.jpg" class="carousel__img carousel__img--move">
+                <img src="./resources/carousel/planes-11.jpg" class="carousel__img carousel__img--move">                
+            </div>
+
+            <!-- Container for left/right half -->
+            <div class="content__front">
+                <!-- Left half -->
+                <div class="content__half content--blurred">
+                    <div class="info content--corners">
+                        <h1 class="info__heading content--font-large">What is Nearest Plane?</h1>
+                        
+                        <p class="info__description content--font-small">
+                            Nearest Plane is an awesome little app that shows you the closest aircraft
+                            to any point in the world, at any time, with extreme accuracy.
+                        </p>
+
+                        <hr class="content__line"/>
+
+                        <!-- Input area (location field, go button, and current location button) -->
+                        <div class="input">
+                            <div class="input__area">
+                                <h2 class="input__label">- Enter Location -</h2>
+                            </div>
+                            <div class="input__area">
+                                <input class="input__field content--font-small" id="coords" type="text" placeholder="Ex: 28.608295, -80.604120"/>
+                            </div>
+                            <div class="input__area">
+                                <button class="input__button content--font-small" id="launch" type="submit">Go</button>
+                                <button class="input__button content--font-small" id="use-location" type="button">Use current location</button>
+                            </div>
+                        </div>
+
+                        <hr class="content__line"/>
+
+                        <p class="info__description content--font-small">
+                            To get started, enter a location (latitude/longitude) into the field above,
+                            then press <i>"Go"</i> to search for aircraft.
+                        </p>
+                        <p class="info__description content--font-small">
+                            If you'd like to use your current location, simply press <i>"Use current location"</i>,
+                            and your location will be filled in automatically.
+                        </p>
+                        <p class="info__description content--font-small">
+                            Otherwise, you'll need to find the coordinates of the location you want to use manually.
+                            First, go to <a href="https://www.google.com/maps/" rel="external" class="content__link">Google Maps</a>
+                            and navigate to your location of choice. Then, follow
+                            <button class="info__button content__link" id="open-instructions" type="button"><u>these steps</u></button>
+                            to get the coordinates of your location. Once you've copied the coordinates, paste them into the field above,
+                            then press <i>"Go"</i> to get started.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right half -->
+                <div class="content__half">
+                    <div class="output" id="out">
+                        <div class="output__box content--blurred">
+                            <h2 class="output__heading content--line-left content--font-small" id="output-head">Enter a location, then look here to see the results!</h2>
+                            <ul class="output__details content--line-left" id="output-details">
+                                <li class="output__telemetry content--font-small">
+                                    After entering a pair of coordinates into the field on the left,
+                                    the nearest aircraft to the location will be displayed here
+                                </li>
+                                <li class="output__telemetry content--font-small">
+                                    This section will show you how far away the aircraft is, what airline
+                                    it belongs to, as well as other cool data
+                                </li>
+                                <li class="output__telemetry content--font-small">
+                                    In the rare event that a nearby aircraft is broadcasting an emergency
+                                    <a href="https://en.wikipedia.org/wiki/Transponder_(aeronautics)" rel="external" class="content__link">squawk code</a>,
+                                    information about the aircraft which is broadcasting the code will be shown here as well
+                                </li>
+                                <li class="output__telemetry content--font-small">
+                                    All flight data and aircraft telemetry is provided by the
+                                    <a href="https://opensky-network.org/apidoc/index.html" rel="external" class="content__link">OpenSky Network API</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="output__bottom">
+                            <button class="output__button" id="prev" type="button">&#8592;</button>
+                            <button class="output__button" id="next" type="button">&#8594;</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="popup content--hidden" id="location-instructions">
+            <div class="popup__box">
+                <div class="inline">
+                    <button class="popup__button" id="close-instructions">&times;</button>
+                </div>
+                <div class="inline">
+                    <p class="inline__description content--font-small">Right-click on location &#8594;</p>
+                    <img src="./resources/info/dropdown.png" class="inline__img"/>
+                    <p class="inline__description content--font-small">Click "What's here?" to place marker &#8594;</p>
+                    <img src="./resources/info/marker-grey-on-red.png" class="inline__img"/>
+                    <p class="inline__description content--font-small">Then highlight and copy coordinates &#8594;</p>
+                    <img src="./resources/info/marker-popup-close.png" class="inline__img"/>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
