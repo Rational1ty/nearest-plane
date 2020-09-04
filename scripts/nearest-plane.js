@@ -20,7 +20,7 @@ function submit() {
     try {
         loc = getWGALatLong(...lin);
     } catch (err) {
-        alert('Do not mix directional/nondirectional coordinates');
+        alert('Do not mix directional and nondirectional coordinates');
         $('coords').value = '';
         return;
     }
@@ -35,6 +35,7 @@ function submit() {
  */
 async function nearestPlane(lat, long) {
     // TODO: Add an actual loading symbol to the page
+    console.log('Fetching data...')
 
     // Get JSON response from api, repeat with larger bounding box if no aircraft found or if response is invalid
     let range = 0.5;
@@ -56,6 +57,8 @@ async function nearestPlane(lat, long) {
         }
     } while (true);
 
+    console.log('here');
+
     // Finding closest plane to location using geodesicDist
     let min = Number.MAX_SAFE_INTEGER;
     let curr;
@@ -75,27 +78,32 @@ async function nearestPlane(lat, long) {
     const airline = getAirline(nearest[1]);
     const flnumber = nearest[1].slice(3).trim();
 
-    const nid = createOutputBox();
-    if (nid === 1) {
-        document.getElementsByClassName('output__box')[0].remove();
-    }
+    // ========================= vvv THIS NEEDS TO CHANGE vvv ==============================
 
-    $(`output-head-${nid}`).textContent = `The nearest plane to (${directLatLong[0]}, ${directLatLong[1]}) is `;
+    createOutputBox();
+    // const nid = 1;
+    // if (nid === 1) {
+    //     document.getElementsByClassName('output__box')[0].remove();
+    // }
+
+    $(`output-head`).textContent = `The nearest plane to (${directLatLong[0]}, ${directLatLong[1]}) is `;
     if (airline === "private aircraft") {
-        $(`output-head-${nid}`).textContent += `a private aircraft from ${nearest[2]}`;
+        $(`output-head`).textContent += `a private aircraft from ${nearest[2]}`;
     } else if (/[A-Za-z]+/.test(flnumber)) {
-        $(`output-head-${nid}`).textContent += `a ${airline} flight from ${nearest[2]}`;
+        $(`output-head`).textContent += `a ${airline} flight from ${nearest[2]}`;
     } else {
-        $(`output-head-${nid}`).textContent += `${airline} flight ${flnumber} from ${nearest[2]}`;
+        $(`output-head`).textContent += `${airline} flight ${flnumber} from ${nearest[2]}`;
     }
 
     addOutputDetail(
-        `output-details-${nid}`,
+        `output-details`,
         'Distance:',
         `${gcDist} mi`,
         'How far away the aircraft is from the provided location; calculated using the geodesic distance formula (distance between 2 points on a sphere)'
     );
-    displayAircraftInfo(`output-details-${nid}`, nearest);
+    displayAircraftInfo(`output-details`, nearest);
+
+    // ========================= ^^^ THIS NEEDS TO CHANGE ^^^ ==============================
 }
 
 /**
@@ -177,6 +185,9 @@ function checkSquawk(state) {
  * Ex: h2 id="extra-head-1" / ul id="extra-details-1" => 1 would be returned
  */
 function createOutputBox(requestedId = 0) {
+    // Remove current ouput box
+    $('out').removeChild(document.getElementsByClassName('output__box')[0]);
+
     // Create new output box
     const box = document.createElement('div');
     box.classList.add('output__box', 'content--blurred');
@@ -185,29 +196,31 @@ function createOutputBox(requestedId = 0) {
     head.classList.add('output__heading', 'content--line-left', 'content--font-small');
 
     // Find an unused id for new output head
-    let i = requestedId ? requestedId : 1;
-    let hid = `output-head-${i}`;
-    while ($(hid)) {
-        hid = `output-head-${++i}`;
-    }
+    // let i = requestedId ? requestedId : 1;
+    // let hid = `output-head-${i}`;
+    // while ($(hid)) {
+    //     hid = `output-head-${++i}`;
+    // }
+
     // Assign unique id to new heads
-    head.id = hid;
+    head.id = 'output-head';
 
     const list = document.createElement('ul');
     list.classList.add('output__details', 'content--line-left');
     
     // Assign unique id to new details list
-    list.id = `output-details-${i}`;
+    list.id = 'output-details';
 
     box.append(head);
     box.append(list);
     
-    $('out').insertBefore(box, document.getElementsByClassName('output__box')[0]);
-    for (const box of document.getElementsByClassName('output__box')) {
-        // TODO: Hide other slides
-    }
+    // $('out').insertBefore(box, document.getElementsByClassName('output__box')[0]);
+    // for (const box of document.getElementsByClassName('output__box')) {
+    //     // TODO: Hide other slides
+    // }
+    $('out').append(box);
 
-    return i;
+    //return i;
 }
 
 /**

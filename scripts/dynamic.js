@@ -14,27 +14,27 @@ window.addEventListener('load', () => {
     $('use-location').addEventListener('click', fillLocation);
 
     // Set onclick listeners for next/previous arrow buttons under output box
-    $('next').addEventListener('click', next.bind(null, 'output__box'));
-    $('prev').addEventListener('click', prev.bind(null, 'output__box'));
+    // $('next').addEventListener('click', next.bind(null, 'output__box'));
+    // $('prev').addEventListener('click', prev.bind(null, 'output__box'));
 
-    checkOutputButtons();
+    // checkOutputButtons();
 
-    for (const s of document.getElementsByClassName('output__box')) {
-        if (!s.classList.contains('content--hidden')) continue;
-        s.classList.add('output__box--right');
-    }
+    // for (const s of document.getElementsByClassName('output__box')) {
+    //     if (!s.classList.contains('content--hidden')) continue;
+    //     s.classList.add('output__box--right');
+    // }
 
     // Check if button visibility needs to be updated whenever dom changes occur
-    const obs1 = new MutationObserver((mutationList, obs) => {
-        checkOutputButtons();
-    });
-    obs1.observe($('out'), { 
-        childList: true
-    });
+    // const obs1 = new MutationObserver((mutationList, obs) => {
+    //     checkOutputButtons();
+    // });
+    // obs1.observe($('out'), { 
+    //     childList: true
+    // });
 });
 
+// Disable image transitions when resizing the page so they don't float around
 window.addEventListener('resize', () => {
-    // Disable image transitions when resizing the page so they don't float around
     const images = document.getElementsByClassName('carousel__img');
     for (const img of images) {
         img.classList.remove('carousel__img--move');
@@ -64,82 +64,82 @@ function randomizeChildren(id) {
     }
 }
 
-function checkOutputButtons() {
-    const outputSlides = document.getElementsByClassName('output__box');
-    if (outputSlides.length <= 1) {
-        $('next').style.visibility = 'hidden';
-        $('prev').style.visibility = 'hidden';
-    } else {
-        $('next').style.visibility = 'visible';
-        $('prev').style.visibility = 'visible';
+// function checkOutputButtons() {
+//     const outputSlides = document.getElementsByClassName('output__box');
+//     if (outputSlides.length <= 1) {
+//         $('next').style.visibility = 'hidden';
+//         $('prev').style.visibility = 'hidden';
+//     } else {
+//         $('next').style.visibility = 'visible';
+//         $('prev').style.visibility = 'visible';
 
-        let i = 0;
-        for (const s of outputSlides) {
-            if (!s.classList.contains('content--hidden')) break;
-            i++;
-        }
+//         let i = 0;
+//         for (const s of outputSlides) {
+//             if (!s.classList.contains('content--hidden')) break;
+//             i++;
+//         }
 
-        $('prev').classList.remove('output__button--disabled');
-        $('next').classList.remove('output__button--disabled');
+//         $('prev').classList.remove('output__button--disabled');
+//         $('next').classList.remove('output__button--disabled');
 
-        if (i === 0) {
-            $('prev').classList.add('output__button--disabled');
-            return;
-        }
-        if (i >= outputSlides.length - 1) {
-            $('next').classList.add('output__button--disabled');
-            return;
-        }
-    }
-}
+//         if (i === 0) {
+//             $('prev').classList.add('output__button--disabled');
+//             return;
+//         }
+//         if (i >= outputSlides.length - 1) {
+//             $('next').classList.add('output__button--disabled');
+//             return;
+//         }
+//     }
+// }
 
-function next(className) {
-    const slides = document.getElementsByClassName(className);
+// function next(className) {
+//     const slides = document.getElementsByClassName(className);
 
-    // Find index of current slide
-    let i = 0;
-    for (const s of slides) {
-        if (!s.classList.contains('content--hidden')) break;
-        i++;
-    }
+//     // Find index of current slide
+//     let i = 0;
+//     for (const s of slides) {
+//         if (!s.classList.contains('content--hidden')) break;
+//         i++;
+//     }
 
-    if (i >= slides.length - 1) return;
+//     if (i >= slides.length - 1) return;
 
-    slides[i].classList.add('output__box--left');
+//     slides[i].classList.add('output__box--left');
 
-    setTimeout(() => {
-        slides[i].classList.add('content--hidden');
+//     setTimeout(() => {
+//         slides[i].classList.add('content--hidden');
 
-        slides[i + 1].classList.remove('content--hidden');
-        slides[i + 1].classList.remove('output__box--right');
+//         slides[i + 1].classList.remove('content--hidden');
+//         slides[i + 1].classList.remove('output__box--right');
 
-        checkOutputButtons();
-    }, 500);
-}
+//         checkOutputButtons();
+//     }, 500);
+// }
 
-function prev(className) {
-    const slides = document.getElementsByClassName(className);
+// function prev(className) {
+//     const slides = document.getElementsByClassName(className);
 
-    // Find index of current slide
-    let i = 0;
-    for (const s of slides) {
-        if (!s.classList.contains('content--hidden')) break;
-        i++;
-    }
+//     // Find index of current slide
+//     let i = 0;
+//     for (const s of slides) {
+//         if (!s.classList.contains('content--hidden')) break;
+//         i++;
+//     }
 
-    if (i === 0) return;
+//     if (i === 0) return;
 
-    slides[i].classList.add('output__box--right');
+//     slides[i].classList.add('output__box--right');
 
-    setTimeout(() => {
-        slides[i].classList.add('content--hidden');
+//     setTimeout(() => {
+//         slides[i].classList.add('content--hidden');
 
-        slides[i - 1].classList.remove('content--hidden');
-        slides[i - 1].classList.remove('output__box--left');
+//         slides[i - 1].classList.remove('content--hidden');
+//         slides[i - 1].classList.remove('output__box--left');
 
-        checkOutputButtons();
-    }, 500);
-}
+//         checkOutputButtons();
+//     }, 500);
+// }
 
 // Background slideshow
 function slide(num) {
