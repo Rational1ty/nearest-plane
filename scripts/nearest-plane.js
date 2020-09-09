@@ -57,8 +57,6 @@ async function nearestPlane(lat, long) {
         }
     } while (true);
 
-    console.log('here');
-
     // Finding closest plane to location using geodesicDist
     let min = Number.MAX_SAFE_INTEGER;
     let curr;
@@ -229,18 +227,18 @@ function createOutputBox(requestedId = 0) {
  */
 function displayAircraftInfo(toListId, state) {
     const desc = {
-        "callsign": `The callsign of the plane, used for radio communication with ground personnel and other aircraft. Each airline has its own unique telephony designator
-                     (the word/s at the beginning of the callsign that identify which airline the plane belongs to).`,
+        "callsign": `The callsign of the plane, used for radio communication with ground personnel and other aircraft. Each airline has its own unique "telephony designator"
+                     (the word(s) at the beginning of the callsign that identify which airline the plane belongs to)`,
         "speed": `How fast the aircraft is moving horizontal to the ground; the aircraft's "ground speed"`,
         "direction": `The "true track" of the aircraft. This is the direction that the aircraft is moving towards (i.e., the direction the aircraft's velocity vector
-                      is pointing towards). However, true track is not always the same as the aircraft's heading, which is where the aircraft is pointing. For example,
+                      is pointing towards). However, true track is not always the same as the aircraft's "heading", which is where the aircraft is pointing. For example,
                       windy conditions could mean that an aircraft might be facing North (a heading of 0°), while it is actually travelling Northeast (a true track of 30°)
-                      because of drift caused by wind.`,
+                      because of drift caused by wind`,
         "altitude": `The geometric altitude of the aircraft, or how high above Earth's surface the plane is flying. This is the same number that you would get if you
-                     stuck a giant ruler between the bottom of the aircraft and the ground.`,
+                     stuck a giant ruler between the bottom of the aircraft and the ground`,
         "vertRate": `The aircraft's vertical rate represents how fast its altitude is changing. A positive value (+) means that the aircraft is climbing,
                      while a negative value (-) means that it is descending. The larger the number, the faster the aircraft is moving up or down. An aircraft
-                     with a vertical rate of 0 is cruising at a constant altitude, neither climbing nor descending.`
+                     with a vertical rate of 0 is cruising at a constant altitude, neither climbing nor descending`
     };
 
     // Callsign
