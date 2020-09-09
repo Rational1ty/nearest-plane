@@ -78,28 +78,24 @@ async function nearestPlane(lat, long) {
 
     // ========================= vvv THIS NEEDS TO CHANGE vvv ==============================
 
-    createOutputBox();
-    // const nid = 1;
-    // if (nid === 1) {
-    //     document.getElementsByClassName('output__box')[0].remove();
-    // }
+    const uid = createOutputBox();
 
-    $(`output-head`).textContent = `The nearest plane to (${directLatLong[0]}, ${directLatLong[1]}) is `;
+    $(`output-head-${uid}`).textContent = `The nearest plane to (${directLatLong[0]}, ${directLatLong[1]}) is `;
     if (airline === "private aircraft") {
-        $(`output-head`).textContent += `a private aircraft from ${nearest[2]}`;
+        $(`output-head-${uid}`).textContent += `a private aircraft from ${nearest[2]}`;
     } else if (/[A-Za-z]+/.test(flnumber)) {
-        $(`output-head`).textContent += `a ${airline} flight from ${nearest[2]}`;
+        $(`output-head-${uid}`).textContent += `a ${airline} flight from ${nearest[2]}`;
     } else {
-        $(`output-head`).textContent += `${airline} flight ${flnumber} from ${nearest[2]}`;
+        $(`output-head-${uid}`).textContent += `${airline} flight ${flnumber} from ${nearest[2]}`;
     }
 
     addOutputDetail(
-        `output-details`,
+        `output-details-${uid}`,
         'Distance:',
         `${gcDist} mi`,
         'How far away the aircraft is from the provided location; calculated using the geodesic distance formula (distance between 2 points on a sphere)'
     );
-    displayAircraftInfo(`output-details`, nearest);
+    displayAircraftInfo(`output-details-${uid}`, nearest);
 
     // ========================= ^^^ THIS NEEDS TO CHANGE ^^^ ==============================
 }
@@ -213,6 +209,7 @@ function createOutputBox(requestedId = 0) {
     box.append(head);
     box.append(list);
     
+    // TODO: use insertBefore to add this before output__bottom
     $('out').append(box);
 
     return i;
