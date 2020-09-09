@@ -183,8 +183,10 @@ function checkSquawk(state) {
  * Ex: h2 id="extra-head-1" / ul id="extra-details-1" => 1 would be returned
  */
 function createOutputBox(requestedId = 0) {
-    // Remove current ouput box
-    $('out').removeChild(document.getElementsByClassName('output__box')[0]);
+    // Hide current ouput boxes
+    for (const ob of document.getElementsByClassName('output__box')) {
+        ob.classList.add('content--hidden');
+    }
 
     // Create new output box
     const box = document.createElement('div');
@@ -194,31 +196,26 @@ function createOutputBox(requestedId = 0) {
     head.classList.add('output__heading', 'content--line-left', 'content--font-small');
 
     // Find an unused id for new output head
-    // let i = requestedId ? requestedId : 1;
-    // let hid = `output-head-${i}`;
-    // while ($(hid)) {
-    //     hid = `output-head-${++i}`;
-    // }
+    let i = requestedId ? requestedId : 1;
+    while ($(`output-head-${i}`)) {
+        i++;
+    }
 
     // Assign unique id to new heads
-    head.id = 'output-head';
+    head.id = `output-head-${i}`;
 
     const list = document.createElement('ul');
     list.classList.add('output__details', 'content--line-left');
     
     // Assign unique id to new details list
-    list.id = 'output-details';
+    list.id = `output-details-${i}`;
 
     box.append(head);
     box.append(list);
     
-    // $('out').insertBefore(box, document.getElementsByClassName('output__box')[0]);
-    // for (const box of document.getElementsByClassName('output__box')) {
-    //     // TODO: Hide other slides
-    // }
     $('out').append(box);
 
-    //return i;
+    return i;
 }
 
 /**
