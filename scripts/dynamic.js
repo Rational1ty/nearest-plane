@@ -25,12 +25,12 @@ window.addEventListener('load', () => {
     // }
 
     // Check if button visibility needs to be updated whenever dom changes occur
-    // const obs1 = new MutationObserver((mutationList, obs) => {
-    //     checkOutputButtons();
-    // });
-    // obs1.observe($('out'), { 
-    //     childList: true
-    // });
+    const buttonObs = new MutationObserver((mutationList, obs) => {
+        checkOutputButtons();
+    });
+    buttonObs.observe($('out'), {
+        childList: true,
+    });
 });
 
 // Disable image transitions when resizing the page so they don't float around
@@ -64,34 +64,39 @@ function randomizeChildren(id) {
     }
 }
 
-// function checkOutputButtons() {
-//     const outputSlides = document.getElementsByClassName('output__box');
-//     if (outputSlides.length <= 1) {
-//         $('next').style.visibility = 'hidden';
-//         $('prev').style.visibility = 'hidden';
-//     } else {
-//         $('next').style.visibility = 'visible';
-//         $('prev').style.visibility = 'visible';
+function checkOutputButtons() {
+    // Get buttons
+    const pb = $('prev');
+    const nb = $('next');
 
-//         let i = 0;
-//         for (const s of outputSlides) {
-//             if (!s.classList.contains('content--hidden')) break;
-//             i++;
-//         }
+    // Check if buttons need to be visible
+    const outputSlides = document.getElementsByClassName('output__box');
+    if (outputSlides.length > 1) {
+        pb.classList.remove('content--hidden');
+        nb.classList.remove('content--hidden');
+    }
 
-//         $('prev').classList.remove('output__button--disabled');
-//         $('next').classList.remove('output__button--disabled');
+    // Find which slide is currently displayed
+    let i = 0;
+    for (const slide of outputSlides) {
+        if (!slide.classList.contains('content--hidden')) break;
+        i++;
+    }
 
-//         if (i === 0) {
-//             $('prev').classList.add('output__button--disabled');
-//             return;
-//         }
-//         if (i >= outputSlides.length - 1) {
-//             $('next').classList.add('output__button--disabled');
-//             return;
-//         }
-//     }
-// }
+    pb.classList.remove('output__button--disabled');
+    nb.classList.remove('output__button--disabled');
+
+    // If the first slide is currently displayed, disable the "prev" button
+    if (i === 0) {
+        pb.classList.add('output__button--disabled');
+        return;
+    }
+    // If the last slide is currently displayed, disable the "next" button
+    if (i === outputSlides.length - 1) {
+        nb.classList.add('output__button--disabled');
+        return;
+    }
+}
 
 // function next(className) {
 //     const slides = document.getElementsByClassName(className);

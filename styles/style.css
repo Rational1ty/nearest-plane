@@ -34,7 +34,7 @@ html, body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    overflow: hidden;
+    overflow: hidden auto;
 }
 
 /* Style for most <hr> elements */
@@ -277,16 +277,6 @@ html, body {
     transition: all 0.5s ease-in-out;
 }
 
-.output__box--right {
-    left: 7vw;
-    opacity: 0;
-}
-
-.output__box--left {
-    left: -7vw;
-    opacity: 0;
-}
-
 .output__heading {
     display: block;
     margin: 2vh 1.25vw;
@@ -301,7 +291,7 @@ html, body {
     padding: 1vh 0.75vw;
     width: 80%;
     min-height: 10vh;
-    max-height: 80vh;
+    max-height: 100%;
     height: auto;
     list-style-type: none;
 }

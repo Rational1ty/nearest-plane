@@ -210,7 +210,8 @@ function createOutputBox(requestedId = 0) {
     box.append(list);
     
     // TODO: use insertBefore to add this before output__bottom
-    $('out').append(box);
+    // $('out').append(box);
+    $('out').insertBefore(box, document.getElementsByClassName('output__bottom')[0]);
 
     return i;
 }
@@ -222,7 +223,7 @@ function createOutputBox(requestedId = 0) {
 function displayAircraftInfo(toListId, state) {
     const desc = {
         "callsign": `The callsign of the plane, used for radio communication with ground personnel and other aircraft. Each airline has its own unique "telephony designator"
-                     (the word(s) at the beginning of the callsign that identify which airline the plane belongs to)`,
+                     (the word/s at the beginning of the callsign that identify which airline the plane belongs to)`,
         "speed": `How fast the aircraft is moving horizontal to the ground; the aircraft's "ground speed"`,
         "direction": `The "true track" of the aircraft. This is the direction that the aircraft is moving towards (i.e., the direction the aircraft's velocity vector
                       is pointing towards). However, true track is not always the same as the aircraft's "heading", which is where the aircraft is pointing. For example,
