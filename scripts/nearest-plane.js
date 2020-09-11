@@ -93,7 +93,7 @@ async function nearestPlane(lat, long) {
         `output-details-${uid}`,
         'Distance:',
         `${gcDist} mi`,
-        'How far away the aircraft is from the provided location; calculated using the geodesic distance formula (distance between 2 points on a sphere)'
+        'How far away the aircraft is from the provided location; calculated using the geodesic distance formula (distance between two points on a sphere)'
     );
     displayAircraftInfo(`output-details-${uid}`, nearest);
 

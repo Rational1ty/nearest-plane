@@ -14,8 +14,8 @@ window.addEventListener('load', () => {
     $('use-location').addEventListener('click', fillLocation);
 
     // Set onclick listeners for next/previous arrow buttons under output box
-    // $('next').addEventListener('click', next.bind(null, 'output__box'));
-    // $('prev').addEventListener('click', prev.bind(null, 'output__box'));
+    $('next').addEventListener('click', next.bind(null, 'output__box'));
+    $('prev').addEventListener('click', prev.bind(null, 'output__box'));
 
     // checkOutputButtons();
 
@@ -59,7 +59,7 @@ function randomizeChildren(id) {
     // Implementation of the Fisher-Yates shuffle
     for (let i = element.children.length; i > 0; i--) {
         let roll = Math.random() * i;
-        let scratch = element.children[roll | 0];   // "roll | 0" is equivalant to calling "Math.floor(roll)", but executes faster
+        let scratch = element.children[roll | 0];   // "roll | 0" is the same as calling "Math.floor(roll)", but faster
         element.appendChild(scratch);
     }
 }
@@ -76,75 +76,59 @@ function checkOutputButtons() {
         nb.classList.remove('content--hidden');
     }
 
-    // Find which slide is currently displayed
+    // // Find which slide is currently displayed
+    // let i = 0;
+    // for (const slide of outputSlides) {
+    //     if (!slide.classList.contains('content--hidden')) break;
+    //     i++;
+    // }
+
+    // pb.classList.remove('output__button--disabled');
+    // nb.classList.remove('output__button--disabled');
+
+    // // If the first slide is currently displayed, disable the "prev" button
+    // if (i === 0) {
+    //     pb.classList.add('output__button--disabled');
+    //     return;
+    // }
+    // // If the last slide is currently displayed, disable the "next" button
+    // if (i === outputSlides.length - 1) {
+    //     nb.classList.add('output__button--disabled');
+    //     return;
+    // }
+}
+
+function next(className) {
+    const slides = document.getElementsByClassName(className);
+
+    // Find index of current slide
     let i = 0;
-    for (const slide of outputSlides) {
-        if (!slide.classList.contains('content--hidden')) break;
+    for (const s of slides) {
+        if (!s.classList.contains('content--hidden')) break;
         i++;
     }
 
-    pb.classList.remove('output__button--disabled');
-    nb.classList.remove('output__button--disabled');
+    slides[i].classList.add('content--hidden');
 
-    // If the first slide is currently displayed, disable the "prev" button
-    if (i === 0) {
-        pb.classList.add('output__button--disabled');
-        return;
-    }
-    // If the last slide is currently displayed, disable the "next" button
-    if (i === outputSlides.length - 1) {
-        nb.classList.add('output__button--disabled');
-        return;
-    }
+    //      vvv  If the last slide is currently displayed, wrap i to 0
+    slides[++i >= slides.length ? 0 : i].classList.remove('content--hidden');
 }
 
-// function next(className) {
-//     const slides = document.getElementsByClassName(className);
+function prev(className) {
+    const slides = document.getElementsByClassName(className);
 
-//     // Find index of current slide
-//     let i = 0;
-//     for (const s of slides) {
-//         if (!s.classList.contains('content--hidden')) break;
-//         i++;
-//     }
+    // Find index of current slide
+    let i = 0;
+    for (const s of slides) {
+        if (!s.classList.contains('content--hidden')) break;
+        i++;
+    }
 
-//     if (i >= slides.length - 1) return;
+    slides[i].classList.add('content--hidden');
 
-//     slides[i].classList.add('output__box--left');
-
-//     setTimeout(() => {
-//         slides[i].classList.add('content--hidden');
-
-//         slides[i + 1].classList.remove('content--hidden');
-//         slides[i + 1].classList.remove('output__box--right');
-
-//         checkOutputButtons();
-//     }, 500);
-// }
-
-// function prev(className) {
-//     const slides = document.getElementsByClassName(className);
-
-//     // Find index of current slide
-//     let i = 0;
-//     for (const s of slides) {
-//         if (!s.classList.contains('content--hidden')) break;
-//         i++;
-//     }
-
-//     if (i === 0) return;
-
-//     slides[i].classList.add('output__box--right');
-
-//     setTimeout(() => {
-//         slides[i].classList.add('content--hidden');
-
-//         slides[i - 1].classList.remove('content--hidden');
-//         slides[i - 1].classList.remove('output__box--left');
-
-//         checkOutputButtons();
-//     }, 500);
-// }
+    //      vvv  If the first slide is currently displayed, wrap i to slides.length - 1
+    slides[--i < 0 ? slides.length - 1 : i].classList.remove('content--hidden');
+}
 
 // Background slideshow
 function slide(num) {
