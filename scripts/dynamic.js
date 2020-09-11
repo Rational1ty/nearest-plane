@@ -74,14 +74,17 @@ function checkOutputButtons() {
     if (outputSlides.length > 1) {
         pb.classList.remove('content--hidden');
         nb.classList.remove('content--hidden');
+        $('slide-num').classList.remove('content--hidden');
     }
 
-    // // Find which slide is currently displayed
-    // let i = 0;
-    // for (const slide of outputSlides) {
-    //     if (!slide.classList.contains('content--hidden')) break;
-    //     i++;
-    // }
+    // Find which slide is currently displayed
+    let i = 0;
+    for (const slide of outputSlides) {
+        if (!slide.classList.contains('content--hidden')) break;
+        i++;
+    }
+
+    $('slide-num').textContent = (i + 1).toString();
 
     // pb.classList.remove('output__button--disabled');
     // nb.classList.remove('output__button--disabled');
@@ -110,8 +113,12 @@ function next(className) {
 
     slides[i].classList.add('content--hidden');
 
-    //      vvv  If the last slide is currently displayed, wrap i to 0
-    slides[++i >= slides.length ? 0 : i].classList.remove('content--hidden');
+    // If the last slide is currently displayed, wrap i to 0
+    i = ++i >= slides.length ? 0 : i;
+
+    slides[i].classList.remove('content--hidden');
+
+    $('slide-num').textContent = (i + 1).toString();
 }
 
 function prev(className) {
@@ -126,8 +133,12 @@ function prev(className) {
 
     slides[i].classList.add('content--hidden');
 
-    //      vvv  If the first slide is currently displayed, wrap i to slides.length - 1
-    slides[--i < 0 ? slides.length - 1 : i].classList.remove('content--hidden');
+    // If the first slide is currently displayed, wrap i to slides.length - 1
+    i = --i < 0 ? slides.length - 1 : i;
+    
+    slides[i].classList.remove('content--hidden');
+
+    $('slide-num').textContent = (i + 1).toString();
 }
 
 // Background slideshow
