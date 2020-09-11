@@ -168,7 +168,7 @@ html, body {
 }
 
 .input__label {
-    font-family: Arial, sans-serif;
+    font-family: system-ui, Arial, sans-serif;
 }
 
 .input__field {
@@ -282,7 +282,7 @@ html, body {
     margin: 2vh 1.25vw;
     padding: 1vh 0.75vw;
     text-align: left;
-    font-family: Arial, sans-serif;
+    font-family: system-ui, Arial, sans-serif;
 }
 
 .output__details {

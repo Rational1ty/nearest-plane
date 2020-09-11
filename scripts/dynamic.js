@@ -17,13 +17,6 @@ window.addEventListener('load', () => {
     $('next').addEventListener('click', next.bind(null, 'output__box'));
     $('prev').addEventListener('click', prev.bind(null, 'output__box'));
 
-    // checkOutputButtons();
-
-    // for (const s of document.getElementsByClassName('output__box')) {
-    //     if (!s.classList.contains('content--hidden')) continue;
-    //     s.classList.add('output__box--right');
-    // }
-
     // Check if button visibility needs to be updated whenever dom changes occur
     const buttonObs = new MutationObserver((mutationList, obs) => {
         checkOutputButtons();
@@ -85,20 +78,6 @@ function checkOutputButtons() {
     }
 
     $('slide-num').textContent = (i + 1).toString();
-
-    // pb.classList.remove('output__button--disabled');
-    // nb.classList.remove('output__button--disabled');
-
-    // // If the first slide is currently displayed, disable the "prev" button
-    // if (i === 0) {
-    //     pb.classList.add('output__button--disabled');
-    //     return;
-    // }
-    // // If the last slide is currently displayed, disable the "next" button
-    // if (i === outputSlides.length - 1) {
-    //     nb.classList.add('output__button--disabled');
-    //     return;
-    // }
 }
 
 function next(className) {
