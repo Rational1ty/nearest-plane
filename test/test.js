@@ -22,7 +22,7 @@ function randomizeLoadLines() {
 
        // Randomize delay and speed for animation
        const delay = Math.random() * 5;
-       const speed = (Math.random() * 3) + 2;
+       const speed = (Math.random() * 3) + 1;
        l.style.setProperty('--load-line-delay', `${delay}s`);
        l.style.setProperty('--load-line-speed', `${speed}s`);
    } 
