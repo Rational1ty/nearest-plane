@@ -76,8 +76,6 @@ async function nearestPlane(lat, long) {
     const airline = getAirline(nearest[1]);
     const flnumber = nearest[1].slice(3).trim();
 
-    // ========================= vvv THIS NEEDS TO CHANGE vvv ==============================
-
     const uid = createOutputBox();
 
     $(`output-head-${uid}`).textContent = `The nearest plane to (${directLatLong[0]}, ${directLatLong[1]}) is `;
@@ -96,8 +94,6 @@ async function nearestPlane(lat, long) {
         'How far away the aircraft is from the provided location; calculated using the geodesic distance formula (distance between two points on a sphere)'
     );
     displayAircraftInfo(`output-details-${uid}`, nearest);
-
-    // ========================= ^^^ THIS NEEDS TO CHANGE ^^^ ==============================
 }
 
 /**
