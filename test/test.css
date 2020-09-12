@@ -1,0 +1,73 @@
+:root {
+    --load-line-delay: 0s;
+    --load-line-speed: 4s;
+    --load-line-width: 50%;
+}
+
+html, body {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.load {
+    width: min-content;
+    height: max-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 25vh auto;
+    padding: 2vh 0;
+}
+
+.load__icon {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: max-content;
+    height: 30vh;
+}
+
+.load__trail {
+    position: relative;
+    left: 5vw;
+    bottom: 5vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: max-content;
+    height: auto;
+    margin: 0;
+    padding: 3vh 0;
+    transform: translateY(7.75vh) rotate(-16deg);
+}
+
+.load__container {
+    width: 10vw;
+    height: auto;
+    margin: 0.75vh auto;
+    overflow: hidden;
+}
+
+.load__line {
+    width: var(--load-line-width);
+    height: 0.1vh;
+    margin: 0.2vh 0;
+    border: 0.1vh solid black;
+    color: black;
+    background-color: black;
+    transform: translateX(11vw);
+    animation: var(--load-line-speed) linear var(--load-line-delay) infinite running load;
+}
+
+@keyframes load {
+    from { transform: translateX(11vw); }
+    to { transform: translateX(-11vw); }
+}
+
+.load__img {
+    width: 10vw;
+    object-fit: contain;
+}

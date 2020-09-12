@@ -14,23 +14,16 @@ window.addEventListener('load', () => {
     $('use-location').addEventListener('click', fillLocation);
 
     // Set onclick listeners for next/previous arrow buttons under output box
-    // $('next').addEventListener('click', next.bind(null, 'output__box'));
-    // $('prev').addEventListener('click', prev.bind(null, 'output__box'));
-
-    // checkOutputButtons();
-
-    // for (const s of document.getElementsByClassName('output__box')) {
-    //     if (!s.classList.contains('content--hidden')) continue;
-    //     s.classList.add('output__box--right');
-    // }
+    $('next').addEventListener('click', next.bind(null, 'output__box'));
+    $('prev').addEventListener('click', prev.bind(null, 'output__box'));
 
     // Check if button visibility needs to be updated whenever dom changes occur
-    // const obs1 = new MutationObserver((mutationList, obs) => {
-    //     checkOutputButtons();
-    // });
-    // obs1.observe($('out'), { 
-    //     childList: true
-    // });
+    const buttonObs = new MutationObserver((mutationList, obs) => {
+        checkOutputButtons();
+    });
+    buttonObs.observe($('out'), {
+        childList: true,
+    });
 });
 
 // Disable image transitions when resizing the page so they don't float around
@@ -59,87 +52,73 @@ function randomizeChildren(id) {
     // Implementation of the Fisher-Yates shuffle
     for (let i = element.children.length; i > 0; i--) {
         let roll = Math.random() * i;
-        let scratch = element.children[roll | 0];   // "roll | 0" is equivalant to calling "Math.floor(roll)", but executes faster
+        let scratch = element.children[roll | 0];   // "roll | 0" is the same as calling "Math.floor(roll)", but faster
         element.appendChild(scratch);
     }
 }
 
-// function checkOutputButtons() {
-//     const outputSlides = document.getElementsByClassName('output__box');
-//     if (outputSlides.length <= 1) {
-//         $('next').style.visibility = 'hidden';
-//         $('prev').style.visibility = 'hidden';
-//     } else {
-//         $('next').style.visibility = 'visible';
-//         $('prev').style.visibility = 'visible';
+function checkOutputButtons() {
+    // Get buttons
+    const pb = $('prev');
+    const nb = $('next');
 
-//         let i = 0;
-//         for (const s of outputSlides) {
-//             if (!s.classList.contains('content--hidden')) break;
-//             i++;
-//         }
+    // Check if buttons need to be visible
+    const outputSlides = document.getElementsByClassName('output__box');
+    if (outputSlides.length > 1) {
+        pb.classList.remove('content--hidden');
+        nb.classList.remove('content--hidden');
+        $('slide-num').classList.remove('content--hidden');
+    }
 
-//         $('prev').classList.remove('output__button--disabled');
-//         $('next').classList.remove('output__button--disabled');
+    // Find which slide is currently displayed
+    let i = 0;
+    for (const slide of outputSlides) {
+        if (!slide.classList.contains('content--hidden')) break;
+        i++;
+    }
 
-//         if (i === 0) {
-//             $('prev').classList.add('output__button--disabled');
-//             return;
-//         }
-//         if (i >= outputSlides.length - 1) {
-//             $('next').classList.add('output__button--disabled');
-//             return;
-//         }
-//     }
-// }
+    $('slide-num').textContent = (i + 1).toString();
+}
 
-// function next(className) {
-//     const slides = document.getElementsByClassName(className);
+function next(className) {
+    const slides = document.getElementsByClassName(className);
 
-//     // Find index of current slide
-//     let i = 0;
-//     for (const s of slides) {
-//         if (!s.classList.contains('content--hidden')) break;
-//         i++;
-//     }
+    // Find index of current slide
+    let i = 0;
+    for (const s of slides) {
+        if (!s.classList.contains('content--hidden')) break;
+        i++;
+    }
 
-//     if (i >= slides.length - 1) return;
+    slides[i].classList.add('content--hidden');
 
-//     slides[i].classList.add('output__box--left');
+    // If the last slide is currently displayed, wrap i to 0
+    i = ++i >= slides.length ? 0 : i;
 
-//     setTimeout(() => {
-//         slides[i].classList.add('content--hidden');
+    slides[i].classList.remove('content--hidden');
 
-//         slides[i + 1].classList.remove('content--hidden');
-//         slides[i + 1].classList.remove('output__box--right');
+    $('slide-num').textContent = (i + 1).toString();
+}
 
-//         checkOutputButtons();
-//     }, 500);
-// }
+function prev(className) {
+    const slides = document.getElementsByClassName(className);
 
-// function prev(className) {
-//     const slides = document.getElementsByClassName(className);
+    // Find index of current slide
+    let i = 0;
+    for (const s of slides) {
+        if (!s.classList.contains('content--hidden')) break;
+        i++;
+    }
 
-//     // Find index of current slide
-//     let i = 0;
-//     for (const s of slides) {
-//         if (!s.classList.contains('content--hidden')) break;
-//         i++;
-//     }
+    slides[i].classList.add('content--hidden');
 
-//     if (i === 0) return;
+    // If the first slide is currently displayed, wrap i to slides.length - 1
+    i = --i < 0 ? slides.length - 1 : i;
+    
+    slides[i].classList.remove('content--hidden');
 
-//     slides[i].classList.add('output__box--right');
-
-//     setTimeout(() => {
-//         slides[i].classList.add('content--hidden');
-
-//         slides[i - 1].classList.remove('content--hidden');
-//         slides[i - 1].classList.remove('output__box--left');
-
-//         checkOutputButtons();
-//     }, 500);
-// }
+    $('slide-num').textContent = (i + 1).toString();
+}
 
 // Background slideshow
 function slide(num) {

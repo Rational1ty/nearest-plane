@@ -78,28 +78,24 @@ async function nearestPlane(lat, long) {
 
     // ========================= vvv THIS NEEDS TO CHANGE vvv ==============================
 
-    createOutputBox();
-    // const nid = 1;
-    // if (nid === 1) {
-    //     document.getElementsByClassName('output__box')[0].remove();
-    // }
+    const uid = createOutputBox();
 
-    $(`output-head`).textContent = `The nearest plane to (${directLatLong[0]}, ${directLatLong[1]}) is `;
+    $(`output-head-${uid}`).textContent = `The nearest plane to (${directLatLong[0]}, ${directLatLong[1]}) is `;
     if (airline === "private aircraft") {
-        $(`output-head`).textContent += `a private aircraft from ${nearest[2]}`;
+        $(`output-head-${uid}`).textContent += `a private aircraft from ${nearest[2]}`;
     } else if (/[A-Za-z]+/.test(flnumber)) {
-        $(`output-head`).textContent += `a ${airline} flight from ${nearest[2]}`;
+        $(`output-head-${uid}`).textContent += `a ${airline} flight from ${nearest[2]}`;
     } else {
-        $(`output-head`).textContent += `${airline} flight ${flnumber} from ${nearest[2]}`;
+        $(`output-head-${uid}`).textContent += `${airline} flight ${flnumber} from ${nearest[2]}`;
     }
 
     addOutputDetail(
-        `output-details`,
+        `output-details-${uid}`,
         'Distance:',
         `${gcDist} mi`,
-        'How far away the aircraft is from the provided location; calculated using the geodesic distance formula (distance between 2 points on a sphere)'
+        'How far away the aircraft is from the provided location; calculated using the geodesic distance formula (distance between two points on a sphere)'
     );
-    displayAircraftInfo(`output-details`, nearest);
+    displayAircraftInfo(`output-details-${uid}`, nearest);
 
     // ========================= ^^^ THIS NEEDS TO CHANGE ^^^ ==============================
 }
@@ -183,8 +179,10 @@ function checkSquawk(state) {
  * Ex: h2 id="extra-head-1" / ul id="extra-details-1" => 1 would be returned
  */
 function createOutputBox(requestedId = 0) {
-    // Remove current ouput box
-    $('out').removeChild(document.getElementsByClassName('output__box')[0]);
+    // Hide current ouput boxes
+    for (const ob of document.getElementsByClassName('output__box')) {
+        ob.classList.add('content--hidden');
+    }
 
     // Create new output box
     const box = document.createElement('div');
@@ -194,31 +192,28 @@ function createOutputBox(requestedId = 0) {
     head.classList.add('output__heading', 'content--line-left', 'content--font-small');
 
     // Find an unused id for new output head
-    // let i = requestedId ? requestedId : 1;
-    // let hid = `output-head-${i}`;
-    // while ($(hid)) {
-    //     hid = `output-head-${++i}`;
-    // }
+    let i = requestedId ? requestedId : 1;
+    while ($(`output-head-${i}`)) {
+        i++;
+    }
 
     // Assign unique id to new heads
-    head.id = 'output-head';
+    head.id = `output-head-${i}`;
 
     const list = document.createElement('ul');
     list.classList.add('output__details', 'content--line-left');
     
     // Assign unique id to new details list
-    list.id = 'output-details';
+    list.id = `output-details-${i}`;
 
     box.append(head);
     box.append(list);
     
-    // $('out').insertBefore(box, document.getElementsByClassName('output__box')[0]);
-    // for (const box of document.getElementsByClassName('output__box')) {
-    //     // TODO: Hide other slides
-    // }
-    $('out').append(box);
+    // TODO: use insertBefore to add this before output__bottom
+    // $('out').append(box);
+    $('out').insertBefore(box, document.getElementsByClassName('output__bottom')[0]);
 
-    //return i;
+    return i;
 }
 
 /**
@@ -228,7 +223,7 @@ function createOutputBox(requestedId = 0) {
 function displayAircraftInfo(toListId, state) {
     const desc = {
         "callsign": `The callsign of the plane, used for radio communication with ground personnel and other aircraft. Each airline has its own unique "telephony designator"
-                     (the word(s) at the beginning of the callsign that identify which airline the plane belongs to)`,
+                     (the word/s at the beginning of the callsign that identify which airline the plane belongs to)`,
         "speed": `How fast the aircraft is moving horizontal to the ground; the aircraft's "ground speed"`,
         "direction": `The "true track" of the aircraft. This is the direction that the aircraft is moving towards (i.e., the direction the aircraft's velocity vector
                       is pointing towards). However, true track is not always the same as the aircraft's "heading", which is where the aircraft is pointing. For example,
