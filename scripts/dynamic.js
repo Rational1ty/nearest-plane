@@ -77,7 +77,7 @@ function checkOutputButtons() {
         i++;
     }
 
-    $('slide-num').textContent = (i + 1).toString();
+    $('slide-num').textContent = `${i + 1}/${outputSlides.length}`;
 }
 
 function next(className) {
@@ -97,7 +97,7 @@ function next(className) {
 
     slides[i].classList.remove('content--hidden');
 
-    $('slide-num').textContent = (i + 1).toString();
+    $('slide-num').textContent = `${i + 1}/${slides.length}`;
 }
 
 function prev(className) {
@@ -117,7 +117,7 @@ function prev(className) {
     
     slides[i].classList.remove('content--hidden');
 
-    $('slide-num').textContent = (i + 1).toString();
+    $('slide-num').textContent = `${i + 1}/${slides.length}`;
 }
 
 // Background slideshow

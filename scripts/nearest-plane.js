@@ -78,7 +78,7 @@ async function nearestPlane(lat, long) {
 
     const uid = createOutputBox();
 
-    $(`output-head-${uid}`).textContent = `The nearest plane to (${directLatLong[0]}, ${directLatLong[1]}) is `;
+    $(`output-head-${uid}`).textContent = `The nearest plane to ${directLatLong[0]}, ${directLatLong[1]} is `;
     if (airline === "private aircraft") {
         $(`output-head-${uid}`).textContent += `a private aircraft from ${nearest[2]}`;
     } else if (/[A-Za-z]+/.test(flnumber)) {
