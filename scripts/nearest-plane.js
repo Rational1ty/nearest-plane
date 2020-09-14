@@ -87,6 +87,13 @@ async function nearestPlane(lat, long) {
         $(`output-head-${uid}`).textContent += `${airline} flight ${flnumber} from ${nearest[2]}`;
     }
 
+    // Add time and distance to output details list
+    addOutputDetail(
+        `output-details-${uid}`,
+        'Time:',
+        `${res.time ? getTimestamp(res.time) : 'n/a'}`,
+        'The time when the data for this aircraft was fetched from the server. Flight data is typically updated at least once every 15 seconds'
+    );
     addOutputDetail(
         `output-details-${uid}`,
         'Distance:',
