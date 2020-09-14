@@ -468,14 +468,14 @@ function getHeading(deg) {
  * Converts unix time (in milliseconds) to a timestamp with the format [HH:MM:SS]
  * 
  * @param {number} [ms] the time to convert, in milliseconds (will use the current time if not provided)
- * @return {string} the timestamp [HH:MM:SS]
+ * @return {string} the timestamp, in the format HH:MM:SS
  */
 function getTimestamp(ms = Date.now()) {
     const time = new Date(ms);
     const h = '0' + time.getHours();
     const m = '0' + time.getMinutes();
     const s = '0' + time.getSeconds();
-    return `[${h.slice(-2)}:${m.slice(-2)}:${s.slice(-2)}]`;
+    return `${h.slice(-2)}:${m.slice(-2)}:${s.slice(-2)}`;
 }
 
 /**
