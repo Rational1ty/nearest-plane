@@ -79,29 +79,37 @@
 
                 <!-- Right half -->
                 <div class="content__half">
-                    <div class="output" id="out">
-                        <div class="output__box content--blurred">
-                            <h2 class="output__heading content--line-left content--font-small" id="output-head">Enter a location, then look here to see the results!</h2>
-                            <ul class="output__details content--line-left" id="output-details">
-                                <li class="output__telemetry content--font-small">
-                                    After entering a pair of coordinates into the field on the left,
-                                    the nearest aircraft to the location will be displayed here
-                                </li>
-                                <li class="output__telemetry content--font-small">
-                                    This section will show you how far away the aircraft is, what airline
-                                    it belongs to, as well as other cool data
-                                </li>
-                                <li class="output__telemetry content--font-small">
-                                    In the rare event that a nearby aircraft is broadcasting an emergency
-                                    <a href="https://en.wikipedia.org/wiki/Transponder_(aeronautics)" rel="external" class="content__link">squawk code</a>,
-                                    information about the aircraft which is broadcasting the code will be shown here as well
-                                </li>
-                                <li class="output__telemetry content--font-small">
-                                    All flight data and aircraft telemetry is provided by the
-                                    <a href="https://opensky-network.org/apidoc/index.html" rel="external" class="content__link">OpenSky Network API</a>
-                                </li>
-                            </ul>
+                    <div class="output">
+
+                        <div class="output__load content--blurred content--hidden">
+                            <!-- Add loading icon div here -->
                         </div>
+
+                        <div id="out">
+                            <div class="output__box content--blurred">
+                                <h2 class="output__heading content--line-left content--font-small" id="output-head">Enter a location, then look here to see the results!</h2>
+                                <ul class="output__details content--line-left" id="output-details">
+                                    <li class="output__telemetry content--font-small">
+                                        After entering a pair of coordinates into the field on the left,
+                                        the nearest aircraft to the location will be displayed here
+                                    </li>
+                                    <li class="output__telemetry content--font-small">
+                                        This section will show you how far away the aircraft is, what airline
+                                        it belongs to, as well as other cool data
+                                    </li>
+                                    <li class="output__telemetry content--font-small">
+                                        In the rare event that a nearby aircraft is broadcasting an emergency
+                                        <a href="https://en.wikipedia.org/wiki/Transponder_(aeronautics)" rel="external" class="content__link">squawk code</a>,
+                                        information about the aircraft which is broadcasting the code will be shown here as well
+                                    </li>
+                                    <li class="output__telemetry content--font-small">
+                                        All flight data and aircraft telemetry is provided by the
+                                        <a href="https://opensky-network.org/apidoc/index.html" rel="external" class="content__link">OpenSky Network API</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
                         <div class="output__bottom">
                             <button class="output__button content--hidden" id="prev" type="button">&#8592;</button>
                             <span class="output__button content--hidden" id="slide-num" style="cursor: auto;"></span>

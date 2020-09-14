@@ -212,9 +212,8 @@ function createOutputBox(requestedId = 0) {
     box.append(head);
     box.append(list);
     
-    // TODO: use insertBefore to add this before output__bottom
-    // $('out').append(box);
-    $('out').insertBefore(box, document.getElementsByClassName('output__bottom')[0]);
+    $('out').append(box);
+    //$('out').insertBefore(box, document.getElementsByClassName('output__bottom')[0]);
 
     return i;
 }
