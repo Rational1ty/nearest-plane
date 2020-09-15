@@ -53,6 +53,8 @@ html, body {
     color: var(--main-blue);
     font-family: system-ui, Arial, sans-serif;
     font-size: 16pt;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .content--hidden {

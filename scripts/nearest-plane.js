@@ -104,6 +104,13 @@ async function nearestPlane(lat, long) {
 
     displayAircraftInfo(`output-details-${uid}`, nearest);
 
+    // Add "View raw" button to bottom of output details list
+    const raw = document.createElement('li');
+    raw.classList.add('output__telemetry', 'content__link');
+    raw.id = `output-raw-${uid}`;
+    raw.textContent = 'View raw';
+    $(`output-details-${uid}`).append(raw);
+
     // Hide loading icon and display output
     $('load').classList.add('content--hidden');
     $('out').classList.remove('content--hidden');
@@ -197,22 +204,21 @@ function createOutputBox(requestedId = 0) {
     const box = document.createElement('div');
     box.classList.add('output__box', 'content--blurred');
 
-    const head = document.createElement('h2');
-    head.classList.add('output__heading', 'content--line-left', 'content--font-small');
-
     // Find an unused id for new output head
     let i = requestedId ? requestedId : 1;
     while ($(`output-head-${i}`)) {
         i++;
     }
 
-    // Assign unique id to new heads
-    head.id = `output-head-${i}`;
+    // Create new heading, details list, and foot
+    const head = document.createElement('h2');
+    head.classList.add('output__heading', 'content--line-left', 'content--font-small');
 
     const list = document.createElement('ul');
     list.classList.add('output__details', 'content--line-left');
-    
-    // Assign unique id to new details list
+
+    // Assign unique id to new head, details list, and foot
+    head.id = `output-head-${i}`;
     list.id = `output-details-${i}`;
 
     box.append(head);
