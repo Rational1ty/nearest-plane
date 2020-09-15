@@ -5,10 +5,13 @@ window.addEventListener('load', () => {
     c.appendChild(c.children[0].cloneNode(true));
     setTimeout(slide.bind(null, 1), 20_000);
 
-    // Set onclick listeners for opening/closing popup
+    // Set onclick listeners for opening/closing popups
     $('open-instructions').addEventListener('click', show.bind(null, 'location-instructions'));     // Open link/button (the one that says "these steps")
     $('location-instructions').addEventListener('click', hide.bind(null, 'location-instructions')); // Area around popup box
-    $('close-instructions').addEventListener('click', hide.bind(null, 'location-instructions'));    // "×" button in top-right of popup box
+	$('close-instructions').addEventListener('click', hide.bind(null, 'location-instructions'));    // "×" button in top-right of popup box
+	
+	$('raw-popup').addEventListener('click', hide.bind(null, 'raw-popup'));	// Area around popup
+	$('close-raw').addEventListener('click', hide.bind(null, 'raw-popup'));	// "x" button
 
     // Set onclick listener for "Use current location" button
     $('use-location').addEventListener('click', fillLocation);
@@ -18,9 +21,7 @@ window.addEventListener('load', () => {
     $('prev').addEventListener('click', prev.bind(null, 'output__box'));
 
     // Check if button visibility needs to be updated whenever dom changes occur
-    const buttonObs = new MutationObserver((mutationList, obs) => {
-        checkOutputButtons();
-    });
+    const buttonObs = new MutationObserver(checkOutputButtons);
     buttonObs.observe($('out'), {
         childList: true
     });

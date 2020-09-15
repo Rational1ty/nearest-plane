@@ -243,6 +243,10 @@ html, body {
     max-height: 90vh;
 }
 
+.popup__para {
+	display: block;
+}
+
 .popup__button {
     height: 1em;
     width: 1em;
@@ -300,7 +304,7 @@ html, body {
 .output__details {
     position: relative;
     margin: 2vh 1.25vw;
-    padding: 1vh 0.75vw;
+    padding: 0.25vh 0.75vw;
     width: 80%;
     min-height: 10vh;
     max-height: 100%;
@@ -309,7 +313,8 @@ html, body {
 }
 
 .output__telemetry {
-    margin-bottom: 0.75em;
+    margin: 0.75em;
+    /* margin-bottom: 0.75em; */
 }
 
 .output__property {

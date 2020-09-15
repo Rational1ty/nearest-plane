@@ -1,3 +1,5 @@
+const rawStates = [];
+
 window.addEventListener('load', () => {
     $('launch').addEventListener('click', submit);
 });
@@ -72,13 +74,19 @@ async function nearestPlane(lat, long) {
         }
     }
 
+    // Add nearest aircraft's state to rawStates array
+    rawStates.push(nearest);
+
+    // Get direction, distance, airline, and flight number of nearest aircraft
     const directLatLong = getDirectionalLatLong(lat, long);
     const gcDist = min.toFixed(2);
     const airline = getAirline(nearest[1]);
     const flnumber = nearest[1].slice(3).trim();
 
+    // Create a new output box and save its unique id
     const uid = createOutputBox();
 
+    // Set the text content of output head
     $(`output-head-${uid}`).textContent = `The nearest plane to ${directLatLong[0]}, ${directLatLong[1]} is `;
     if (airline === "private aircraft") {
         $(`output-head-${uid}`).textContent += `a private aircraft from ${nearest[2]}`;
@@ -103,13 +111,6 @@ async function nearestPlane(lat, long) {
     );
 
     displayAircraftInfo(`output-details-${uid}`, nearest);
-
-    // Add "View raw" button to bottom of output details list
-    const raw = document.createElement('li');
-    raw.classList.add('output__telemetry', 'content__link');
-    raw.id = `output-raw-${uid}`;
-    raw.textContent = 'View raw';
-    $(`output-details-${uid}`).append(raw);
 
     // Hide loading icon and display output
     $('load').classList.add('content--hidden');
@@ -225,14 +226,13 @@ function createOutputBox(requestedId = 0) {
     box.append(list);
     
     $('out').append(box);
-    //$('out').insertBefore(box, document.getElementsByClassName('output__bottom')[0]);
 
     return i;
 }
 
 /**
  * @param {string} toListId 
- * @param {*[]} state 
+ * @param {any[]} state 
  */
 function displayAircraftInfo(toListId, state) {
     const desc = {
@@ -299,7 +299,20 @@ function displayAircraftInfo(toListId, state) {
         addOutputDetail(toListId, 'Vertical rate:', `${vrate > 0 ? '+' : ''}${vrate.toFixed(2)} ft/sec`, desc.vertRate);
     } else {
         addOutputDetail(toListId, 'Vertical rate:', 'n/a', desc.vertRate);
-    }
+	}
+	
+	// Raw state
+    const raw = document.createElement('li');
+	raw.classList.add('output__telemetry', 'content__link');
+	const uid = toListId.match(/[0-9]+/);
+    raw.id = `output-raw-${uid}`;
+    raw.textContent = 'View raw';
+	$(toListId).append(raw);
+
+	// Add onclick listener to raw state link
+	raw.addEventListener('click', () => {
+		$('raw-popup').classList.toggle('content--hidden');
+	});
 }
 
 /**
