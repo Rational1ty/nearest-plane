@@ -22,7 +22,7 @@ window.addEventListener('load', () => {
         checkOutputButtons();
     });
     buttonObs.observe($('out'), {
-        childList: true,
+        childList: true
     });
 });
 

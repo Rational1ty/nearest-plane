@@ -5,6 +5,7 @@
 
 html, body {
     margin: 0;
+    border: none;
     padding: 0;
 }
 
@@ -272,6 +273,8 @@ html, body {
     display: default;
     position: relative;
     left: 0;
+    width: 30vw;
+    height: 50vh;
     padding: 1vh 0.5vw;
     opacity: 1;
 }
