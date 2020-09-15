@@ -34,8 +34,9 @@ function submit() {
  * @param {number} long the longitude of a location
  */
 async function nearestPlane(lat, long) {
-    // TODO: Add an actual loading symbol to the page
-    console.log('Fetching data...')
+    // Hide output slides and display loading icon
+    $('out').classList.add('content--hidden');
+    $('load').classList.remove('content--hidden');
 
     // Get JSON response from api, repeat with larger bounding box if no aircraft found or if response is invalid
     let range = 0.5;
@@ -100,7 +101,12 @@ async function nearestPlane(lat, long) {
         `${gcDist} mi`,
         'How far away the aircraft is from the provided location; calculated using the geodesic distance formula (distance between two points on a sphere)'
     );
+
     displayAircraftInfo(`output-details-${uid}`, nearest);
+
+    // Hide loading icon and display output
+    $('load').classList.add('content--hidden');
+    $('out').classList.remove('content--hidden');
 }
 
 /**
@@ -212,9 +218,8 @@ function createOutputBox(requestedId = 0) {
     box.append(head);
     box.append(list);
     
-    // TODO: use insertBefore to add this before output__bottom
-    // $('out').append(box);
-    $('out').insertBefore(box, document.getElementsByClassName('output__bottom')[0]);
+    $('out').append(box);
+    //$('out').insertBefore(box, document.getElementsByClassName('output__bottom')[0]);
 
     return i;
 }
