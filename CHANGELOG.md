@@ -1,6 +1,16 @@
 # CHANGELOG // nearest-plane
 
-## Current version: v2.2.8
+## Current version: v2.3.0
+
+---
+
+## v2.3.0 | 09-24-2020
+*Under the hood*
+- Added "View raw" button to output slides
+  - This displays the raw JSON response from the OpenSky API
+- Removed the ability to close popups by clicking anywhere on the page
+  - Popups will now be closed only with the "x" button in the top-right corner
+  - This was preventing users from copying text from popups, so this should fix that
 
 ---
 
@@ -14,7 +24,7 @@
 ---
 
 ## v2.1.6 | 09-11-2020
-*When, exactly?*
+*It's Time*
 - Added timestamps to output (`hh:mm:ss` format)
 - Made some changes to output property descriptions to improve clarity
 - Updated some HTML elements to more modern versions
