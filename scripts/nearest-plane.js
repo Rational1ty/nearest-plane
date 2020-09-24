@@ -1,4 +1,4 @@
-const rawStates = [];
+const rawJSON = [];
 
 window.addEventListener('load', () => {
     $('launch').addEventListener('click', submit);
@@ -75,7 +75,7 @@ async function nearestPlane(lat, long) {
     }
 
     // Add nearest aircraft's state to rawStates array
-    rawStates.push(nearest);
+    rawJSON.push({time: res.time, state: nearest});
 
     // Get direction, distance, airline, and flight number of nearest aircraft
     const directLatLong = getDirectionalLatLong(lat, long);
@@ -307,11 +307,26 @@ function displayAircraftInfo(toListId, state) {
 	const uid = toListId.match(/[0-9]+/);
     raw.id = `output-raw-${uid}`;
     raw.textContent = 'View raw';
-	$(toListId).append(raw);
+    $(toListId).append(raw);
+    
+    const arrayToJSONString = (arr) => {
+        let formatted = "[<br/>&emsp;";
+        for (let i = 0; i < arr.length; i++) {
+            const quotes = typeof arr[i] === 'string';
+            const eol = (i + 1) % 3 === 0;
+            const last = i === arr.length - 1;
+            formatted += `${quotes ? '"' : ''}${arr[i]}${quotes ? '"' : ''}${last ? '' : ','}${eol ? '<br/>&emsp;' : last ? ' ' : ''}`;
+        }
+        return formatted + "]<br/>";
+    };
 
 	// Add onclick listener to raw state link
 	raw.addEventListener('click', () => {
-		$('raw-popup').classList.toggle('content--hidden');
+        $('raw-popup').classList.remove('content--hidden');
+        // Have to use innerHTML instead of textContent because of line breaks
+        // $('raw-state').innerHTML = `{<br/>&emsp;time: ${},`;
+        // $('raw-state').innerHTML += arrayToJSONString(rawJSON[uid - 1]);
+        $('raw-state').innerHTML = JSON.stringify(rawJSON[uid - 1], null, 4);
 	});
 }
 

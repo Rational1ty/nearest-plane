@@ -7,11 +7,8 @@ window.addEventListener('load', () => {
 
     // Set onclick listeners for opening/closing popups
     $('open-instructions').addEventListener('click', show.bind(null, 'location-instructions'));     // Open link/button (the one that says "these steps")
-    $('location-instructions').addEventListener('click', hide.bind(null, 'location-instructions')); // Area around popup box
 	$('close-instructions').addEventListener('click', hide.bind(null, 'location-instructions'));    // "×" button in top-right of popup box
-	
-	$('raw-popup').addEventListener('click', hide.bind(null, 'raw-popup'));	// Area around popup
-	$('close-raw').addEventListener('click', hide.bind(null, 'raw-popup'));	// "x" button
+	$('close-raw').addEventListener('click', hide.bind(null, 'raw-popup'));	                        // "x" button for raw state popup
 
     // Set onclick listener for "Use current location" button
     $('use-location').addEventListener('click', fillLocation);

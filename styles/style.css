@@ -232,29 +232,35 @@ html, body {
 }
 
 .popup__box {
-    position: relative;
-    margin: auto;
-    padding: 1vh 1vw 2vh 1vw;
-    background-color: white;
-    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: auto;
     max-width: 90vw;
     height: auto;
     max-height: 90vh;
+    margin: auto;
+    padding: 1vh 1vw 2vh 1vw;
+    background-color: white;
+    border-radius: 10px;
 }
 
-.popup__para {
-	display: block;
+.popup__pre {
+    display: block;
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16pt;
 }
 
 .popup__button {
     height: 1em;
-    width: 1em;
-    margin: 0;
+    width: 100%;
+    margin-bottom: 1vh;
     border: none;
     outline: none;
     background: none;
     color: var(--main-blue);
+    text-align: right;
     font-size: 28pt;
 }
 
