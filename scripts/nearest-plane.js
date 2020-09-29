@@ -100,7 +100,7 @@ async function nearestPlane(lat, long) {
     addOutputDetail(
         `output-details-${uid}`,
         'Time:',
-        `${res.time ? getTimestamp(res.time) : 'n/a'}`,
+        `${res.time ? getTimestamp(res.time * 1000) : 'n/a'}`,
         'The time when the data for this aircraft was fetched from the server. Flight data is typically updated at least once every 15 seconds'
     );
     addOutputDetail(

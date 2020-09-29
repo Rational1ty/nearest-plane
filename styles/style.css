@@ -248,7 +248,7 @@ html, body {
 .popup__pre {
     display: block;
     margin: 0;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Consolas', monospace;
     font-size: 16pt;
 }
 
