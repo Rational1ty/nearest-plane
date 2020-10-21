@@ -4,5 +4,5 @@
 
 ---
 
-### Current version (dev): v2.3.1
+### Current version (dev): v2.3.2
 ### Current version (stable): v2.3.0
