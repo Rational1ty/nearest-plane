@@ -1,7 +1,7 @@
 # CHANGELOG // nearest-plane
 
-## Dev: v2.3.2
-## Stable: v2.3.0
+### Dev: v2.3.2
+### Stable: v2.3.0
 
 ---
 
