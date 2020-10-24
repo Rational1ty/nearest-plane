@@ -296,7 +296,7 @@ function displayAircraftInfo(toListId, state) {
     if (state[11] !== null) {
         // Convert from m/s to ft/s
         const vrate = state[11] * 3.28084;
-        addOutputDetail(toListId, 'Vertical rate:', `${vrate > 0 ? '+' : ''}${vrate.toFixed(2)} ft/sec`, desc.vertRate);
+        addOutputDetail(toListId, 'Vertical rate:', `${vrate > 0 ? '+' : ''}${vrate.toFixed(2)} ft/s`, desc.vertRate);
     } else {
         addOutputDetail(toListId, 'Vertical rate:', 'n/a', desc.vertRate);
 	}

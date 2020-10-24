@@ -1,6 +1,7 @@
 # CHANGELOG // nearest-plane
 
-## Current version: v2.3.0
+## Dev: v2.3.2
+## Stable: v2.3.0
 
 ---
 
@@ -15,7 +16,7 @@
 ---
 
 ## v2.2.8 | 09-14-2020
-*Be patient*
+*Patience*
 - Added a loading icon, which displays while fetching data
   - No more staring at a blank box wondering if the site crashed or not :)
 - Fixed a few bugs
@@ -44,7 +45,7 @@
 ---
 
 ## v2.0.0 | 09-01-2020
-*Past and future*
+*Past and Future*
 - Added slides feature for output
   - Each time you press `go`, the results will be added to a list of all outputs rather than overwriting the previous results
   - This allows you to view multiple different aircraft near multiple locations
