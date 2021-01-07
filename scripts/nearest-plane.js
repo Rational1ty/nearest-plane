@@ -36,6 +36,12 @@ function submit() {
  * @param {number} long the longitude of a location
  */
 async function nearestPlane(lat, long) {
+	// Check if coordinates are out of range
+	if (lat > 90 || lat < -90 || long > 180 || long < -180) {
+		alert('Coordinates out of range\n\nLatitude must be in range [-90, 90] and longitude must be in range [-180, 180]');
+		return;
+	}
+
     // Hide output slides and display loading icon
     $('out').classList.add('content--hidden');
     $('load').classList.remove('content--hidden');
