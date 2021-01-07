@@ -91,7 +91,7 @@ async function nearestPlane(lat, long) {
     if (airline === "private aircraft") {
         $(`output-head-${uid}`).textContent += `a private aircraft from ${nearest[2]}`;
     } else if (/[A-Za-z]+/.test(flnumber)) {
-        $(`output-head-${uid}`).textContent += `a ${airline} flight from ${nearest[2]}`;
+        $(`output-head-${uid}`).textContent += `${airline.charAt(0).match(/aeiou/i) ? 'an' : 'a'} ${airline} flight from ${nearest[2]}`;
     } else {
         $(`output-head-${uid}`).textContent += `${airline} flight ${flnumber} from ${nearest[2]}`;
     }
