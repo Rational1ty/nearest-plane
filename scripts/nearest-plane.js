@@ -47,10 +47,10 @@ async function nearestPlane(lat, long) {
     $('load').classList.remove('content--hidden');
 
     // Get JSON response from api, repeat with larger bounding box if no aircraft found or if response is invalid
-    let range = 0.5;
+    let range = 5;
     let res;
     do {
-        range *= 2;
+        range += 5;
         try {
             const response = await getData('https://opensky-network.org/api/states/all', qBoundingBox(lat, long, range));
             if (!response) continue;
@@ -107,7 +107,7 @@ async function nearestPlane(lat, long) {
         `output-details-${uid}`,
         'Time:',
         `${res.time ? getTimestamp(res.time * 1000) : 'n/a'}`,
-        'The time when the data for this aircraft was fetched from the server. Flight data is typically updated at least once every 15 seconds'
+        'The time when the data for this aircraft was fetched from the server. Flight data is typically updated once every 15 seconds'
     );
     addOutputDetail(
         `output-details-${uid}`,
@@ -187,7 +187,7 @@ function checkSquawk(state) {
         "7700": "declared emergency"
     }
 
-    if (!(code in codes)) return;
+    if (!(code in codes)) return false;
 
     const nid = createOutputBox();
     
